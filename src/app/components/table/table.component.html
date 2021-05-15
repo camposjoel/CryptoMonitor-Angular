@@ -1,0 +1,53 @@
+<div class="mat-elevation-z8">
+  <mat-table [dataSource]="datasource">
+    <ng-container matColumnDef="image">
+      <mat-header-cell class="img-cell" *matHeaderCellDef></mat-header-cell>
+      <mat-cell class="img-cell" *matCellDef="let element">
+        <img 
+          src="https://static.coincap.io/assets/icons/{{element.symbol | lowercase}}@2x.png"
+          alt="{{element.symbol}}"
+          class="img-coin"
+        >
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="rank">
+      <mat-header-cell *matHeaderCellDef>Ranking</mat-header-cell>
+      <mat-cell *matCellDef="let element">#{{ element.rank }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        {{ element.name }}
+        <span class="symbol">{{ element.symbol }}</span>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="price">
+      <mat-header-cell *matHeaderCellDef>Precio</mat-header-cell>
+      <mat-cell *matCellDef="let element"
+      [ngClass]="{negChange: realTimePrices[element.id] < element.priceUsd, posChange: realTimePrices[element.id] > element.priceUsd}"
+      >
+        {{ element.priceUsd | currency}}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="capacity">
+      <mat-header-cell *matHeaderCellDef>Cap. de Mercado</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        {{ element.marketCapUsd | currency}}
+      </mat-cell>>
+    </ng-container>
+  
+    <ng-container matColumnDef="variation">
+      <mat-header-cell *matHeaderCellDef>Variación 24h</mat-header-cell>
+      <mat-cell *matCellDef="let element"
+      [ngClass]="{positive: element.changePercent24Hr > 0, negative: element.changePercent24Hr <= 0}">
+        {{ element.changePercent24Hr | currency}}
+      </mat-cell>>
+    </ng-container>
+  
+  
+    <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[10, 5, 20, 25]"></mat-paginator>
+</div>

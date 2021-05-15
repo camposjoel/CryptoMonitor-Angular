@@ -1,0 +1,49 @@
+mat-table {
+  width: 100vw;
+  max-width: 1000px;
+}
+
+mat-cell, mat-header-cell {
+  height: 60px;
+  justify-content: center;
+}
+
+.symbol {
+  margin-left: 5px;
+  font-size: smaller;
+  opacity: 0.5;
+}
+
+.img-cell {
+  width: 50px;
+}
+
+.img-coin {
+  width: 40px;
+}
+
+.positive {
+  color: lightgreen;
+}
+
+.negative {
+  color: lightcoral;
+}
+
+.posChange {
+  animation: positiveChange 250ms both;
+}
+
+.negChange {
+  animation: negativeChange 250ms both;
+}
+
+@keyframes positiveChange {
+  from {color: cornsilk;}
+  to {color: chartreuse;}
+}
+
+@keyframes negativeChange {
+  from {color: cornsilk;}
+  to {color: red;}
+}

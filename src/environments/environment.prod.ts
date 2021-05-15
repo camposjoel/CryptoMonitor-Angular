@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  restApi: "https://api.coincap.io/v2/assets",
+  wsApi: "wss://ws.coincap.io"
 };
