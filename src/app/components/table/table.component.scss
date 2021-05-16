@@ -47,3 +47,23 @@ mat-cell, mat-header-cell {
   from {color: cornsilk;}
   to {color: red;}
 }
+
+@media (max-width: 730px) {
+  .marketCap {
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .img-cell {
+    display: none;
+  }
+  
+  mat-cell {
+    font-size: smaller;
+  }
+
+  mat-table {
+    overflow: hidden
+  }
+}

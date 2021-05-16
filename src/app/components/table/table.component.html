@@ -30,8 +30,8 @@
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="capacity">
-      <mat-header-cell *matHeaderCellDef>Cap. de Mercado</mat-header-cell>
-      <mat-cell *matCellDef="let element">
+      <mat-header-cell *matHeaderCellDef class="marketCap">Cap. de Mercado</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="marketCap">
         {{ element.marketCapUsd | currency}}
       </mat-cell>>
     </ng-container>
