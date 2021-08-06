@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { webSocket } from 'rxjs/webSocket';
-import { delay } from 'rxjs/internal/operators';
+import { delay } from 'rxjs/operators';
 import { Coin } from 'src/app/models/coin';
 import { CoincapService } from 'src/app/services/coincap.service';
 import { environment } from 'src/environments/environment';
