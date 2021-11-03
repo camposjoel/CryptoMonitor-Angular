@@ -1,13 +1,15 @@
 div {
   width: 100%;
-  height: inherit;
+  padding-top: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 img {
-  height: 100%;
+  margin-right: 4px;
+  opacity: 0.8;
+  transform: rotate(-45deg);
 }
 
 span {

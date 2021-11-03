@@ -10,16 +10,13 @@ mat-cell, mat-header-cell {
 
 .symbol {
   margin-left: 5px;
-  font-size: smaller;
-  opacity: 0.5;
+  font-size: xx-small;
+  font-weight: 300;
+  color: lightgray;
 }
 
 .img-cell {
   width: 50px;
-}
-
-.img-coin {
-  width: 40px;
 }
 
 .positive {
