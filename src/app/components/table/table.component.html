@@ -1,5 +1,5 @@
 <div class="mat-elevation-z8">
-  <mat-table [dataSource]="datasource">
+  <mat-table [dataSource]="datasource" matSort>
     <ng-container matColumnDef="image">
       <mat-header-cell class="img-cell" *matHeaderCellDef></mat-header-cell>
       <mat-cell class="img-cell" *matCellDef="let element">
@@ -12,11 +12,11 @@
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="rank">
-      <mat-header-cell *matHeaderCellDef>Ranking</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Ranking</mat-header-cell>
       <mat-cell *matCellDef="let element">#{{ element.rank }}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
       <mat-cell *matCellDef="let element">
         {{ element.name }}
         <span class="symbol">{{ element.symbol }}</span>
