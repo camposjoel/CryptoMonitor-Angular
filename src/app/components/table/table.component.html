@@ -4,10 +4,10 @@
       <mat-header-cell class="img-cell" *matHeaderCellDef></mat-header-cell>
       <mat-cell class="img-cell" *matCellDef="let element">
         <img 
-          src="https://static.coincap.io/assets/icons/{{element.symbol | lowercase}}@2x.png"
+          rawSrc="https://static.coincap.io/assets/icons/{{element.symbol | lowercase}}@2x.png"
           alt="{{element.symbol}}"
-          width="40px"
-          height="40px"
+          width="40"
+          height="40"
         >
       </mat-cell>
     </ng-container>
