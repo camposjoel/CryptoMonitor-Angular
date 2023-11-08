@@ -73,10 +73,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "crypto-monitor-app:build:production"
+              "buildTarget": "crypto-monitor-app:build:production"
             },
             "development": {
-              "browserTarget": "crypto-monitor-app:build:development"
+              "buildTarget": "crypto-monitor-app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -84,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "crypto-monitor-app:build"
+            "buildTarget": "crypto-monitor-app:build"
           }
         },
         "test": {
