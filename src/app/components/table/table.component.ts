@@ -1,11 +1,9 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { webSocket } from 'rxjs/webSocket';
 import { Coin } from 'src/app/models/coin';
 import { CoincapService } from 'src/app/services/coincap.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-table',
@@ -34,28 +32,24 @@ export class TableComponent implements OnInit, AfterViewInit {
         this.datasource.data = coinData.data;
       },
       error: errorMsg => console.log(errorMsg),
-      complete: () => this.getRealTimePrices()
+      complete: () => this.coincapService.getRealTimePrices(this.getCoinsNames())
+        .subscribe({
+          next: (prices) => {
+            this.realTimePrices = { ...this.realTimePrices, ...prices };
+            setTimeout(() => {
+              this.datasource.data.map(coin => {
+                coin.priceUsd = prices[coin.id] ? prices[coin.id] : coin.priceUsd;
+              });
+            }, 400);
+          },
+          error: errorMsg => console.log(errorMsg)
+        })
     });
   }
 
   ngAfterViewInit() {
     this.datasource.paginator = this.paginator;
     this.datasource.sort = this.sort;
-  }
-
-  getRealTimePrices() {
-    webSocket(`${environment.wsApi}/prices?assets=${this.getCoinsNames()}`)
-      .subscribe({
-      next: (prices: any) => {
-        this.realTimePrices = {...this.realTimePrices, ...prices};
-        setTimeout(() => {
-          this.datasource.data.map(coin => {
-            coin.priceUsd = prices[coin.id] ? prices[coin.id] : coin.priceUsd;
-          });
-        }, 400);
-      },
-      error: errorMsg => console.log(errorMsg),
-    });
   }
 
   getCoinsNames() {
