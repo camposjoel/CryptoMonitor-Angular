@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Coin } from 'src/app/models/coin';
@@ -14,6 +14,9 @@ export class TableComponent implements OnInit, AfterViewInit {
   realTimePrices: any = {};
   tableColumns: string[] = ['image', 'rank', 'name', 'price', 'capacity', 'variation'];
   datasource = new MatTableDataSource<Coin>([]);
+  pageSize = 15;
+  pageIndex = 0;
+  maxPageIndex = 0;
   
   @ViewChild(MatPaginator)
   paginator: MatPaginator | null = null;
@@ -27,9 +30,13 @@ export class TableComponent implements OnInit, AfterViewInit {
   
 
   ngOnInit() {
-    this.coincapService.getCoins().subscribe({
+    this.obtainCoins();
+  }
+
+  obtainCoins() {
+    this.coincapService.getCoins(this.pageSize, this.pageIndex + 1).subscribe({
       next: (coinData) => {
-        this.datasource.data = coinData.data;
+        this.datasource.data = [ ...this.datasource.data, ...coinData.data ];
       },
       error: errorMsg => console.log(errorMsg),
       complete: () => this.coincapService.getRealTimePrices(this.getCoinsNames())
@@ -53,10 +60,16 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   getCoinsNames() {
-    return this.datasource.data.map(coin => coin.id).join();
+    return this.datasource.data.slice(this.pageIndex * this.pageSize, this.pageIndex * this.pageSize + this.pageSize).map(coin => coin.id).join();
   }
 
-  testChanges(event?: any) {
-    console.log('hey', event.target.textContent);
+  handlePageEvent(event: PageEvent) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+
+    if (this.pageIndex > this.maxPageIndex) {
+      this.obtainCoins();
+      this.maxPageIndex = this.pageIndex;
+    }
   }
 }

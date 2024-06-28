@@ -1,6 +1,6 @@
 div {
   width: 100%;
-  padding-top: 16px;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,4 +14,5 @@ span {
   letter-spacing: 4px;
   font-size: x-large;
   font-weight: bold;
+  color: rgba($color: #FFFFFF, $alpha: 0.9);
 }
