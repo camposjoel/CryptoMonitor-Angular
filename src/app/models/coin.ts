@@ -13,5 +13,10 @@ export interface Coin {
 }
 
 export interface WsPrices {
-  [key: string]: string
+  [key: string]: string;
+}
+
+export interface CoinsResponse {
+  data: Coin[];
+  timestamp: number;
 }

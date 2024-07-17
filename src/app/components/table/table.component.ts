@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Coin } from 'src/app/models/coin';
+import { Coin, WsPrices } from 'src/app/models/coin';
 import { CoincapService } from 'src/app/services/coincap.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { CoincapService } from 'src/app/services/coincap.service';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit, AfterViewInit {
-  realTimePrices: any = {};
+  realTimePrices: WsPrices = {};
   tableColumns: string[] = ['image', 'rank', 'name', 'price', 'capacity', 'variation'];
   datasource = new MatTableDataSource<Coin>([]);
   pageSize = 15;
@@ -36,7 +36,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   obtainCoins() {
     this.coincapService.getCoins(this.pageSize, this.pageIndex + 1).subscribe({
       next: (coinData) => {
-        this.datasource.data = [ ...this.datasource.data, ...coinData.data ];
+        this.datasource.data = [ ...this.datasource.data, ...coinData ];
       },
       error: errorMsg => console.log(errorMsg),
       complete: () => this.coincapService.getRealTimePrices(this.getCoinsNames())
@@ -60,7 +60,9 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   getCoinsNames() {
-    return this.datasource.data.slice(this.pageIndex * this.pageSize, this.pageIndex * this.pageSize + this.pageSize).map(coin => coin.id).join();
+    const startIndex = this.pageIndex * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    return this.datasource.data.slice(startIndex, endIndex).map(coin => coin.id).join();
   }
 
   handlePageEvent(event: PageEvent) {

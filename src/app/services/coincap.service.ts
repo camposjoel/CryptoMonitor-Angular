@@ -2,12 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { webSocket } from 'rxjs/webSocket';
 import { environment } from 'src/environments/environment';
-import { Coin, WsPrices } from '../models/coin';
-
-type CoinsResponse = {
-  data: Array<Coin>,
-  timestamp: number
-}
+import { Coin, CoinsResponse, WsPrices } from '../models/coin';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +12,7 @@ export class CoincapService {
 
   constructor(private http: HttpClient) { }
 
-  getCoins(itemsPerPage: number, page: number) {
+  getCoins(itemsPerPage: number, page: number): Observable<Coin[]> {
     let limit = itemsPerPage;
     let offset = itemsPerPage * page;
     if (page === 1) {
@@ -26,7 +22,8 @@ export class CoincapService {
     const params = new HttpParams()
       .set('limit', limit.toString())
       .set('offset', offset.toString());
-    return this.http.get<CoinsResponse>(`${environment.restApi}`, { params });
+
+    return this.http.get<CoinsResponse>(`${environment.restApi}`, { params }).pipe(map(response => response.data));
   }
 
   getRealTimePrices(coinsNames: string) {
