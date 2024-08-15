@@ -11,15 +11,25 @@ import { TableComponent } from './components/table/table.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NgOptimizedImage } from '@angular/common';
 
-@NgModule({ declarations: [
-        AppComponent,
-        HeaderComponent,
-        TableComponent,
-        FooterComponent
-    ],
-    bootstrap: [AppComponent], imports: [BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MaterialModule,
-        NgOptimizedImage], providers: [provideHttpClient(withInterceptorsFromDi())] })
+@NgModule({
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    TableComponent,
+    FooterComponent
+  ],
+  bootstrap: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    NgOptimizedImage
+  ],
+  providers: [
+    provideHttpClient(withInterceptorsFromDi())
+  ]
+})
 export class AppModule { }

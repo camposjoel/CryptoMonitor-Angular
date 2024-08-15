@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { debounceTime, tap } from 'rxjs';
 import { Coin, WsPrices } from 'src/app/models/coin';
 import { CoincapService } from 'src/app/services/coincap.service';
 
@@ -35,28 +36,29 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   obtainCoins() {
     this.coincapService.getCoins(this.pageSize, this.pageIndex + 1).subscribe({
-      next: (coinData) => {
-        this.datasource.data = [ ...this.datasource.data, ...coinData ];
-      },
-      error: errorMsg => console.log(errorMsg),
-      complete: () => this.coincapService.getRealTimePrices(this.getCoinsNames())
-        .subscribe({
-          next: (prices) => {
-            this.realTimePrices = { ...this.realTimePrices, ...prices };
-            setTimeout(() => {
-              this.datasource.data.map(coin => {
-                coin.priceUsd = prices[coin.id] ? prices[coin.id] : coin.priceUsd;
-              });
-            }, 400);
-          },
-          error: errorMsg => console.log(errorMsg)
-        })
+      next: coinData => this.datasource.data = [ ...this.datasource.data, ...coinData ],
+      complete: () => this.getCoinsPrices(),
+      error: errorMsg => console.log(errorMsg)
     });
   }
 
   ngAfterViewInit() {
     this.datasource.paginator = this.paginator;
     this.datasource.sort = this.sort;
+  }
+
+  getCoinsPrices() {
+    const names = this.getCoinsNames();
+    this.coincapService.getRealTimePrices(names)
+      .pipe(
+        tap(prices => this.realTimePrices = { ...this.realTimePrices, ...prices }),
+        debounceTime(400)
+      )
+      .subscribe(prices => {
+        this.datasource.data.map(coin => {
+           coin.priceUsd = prices[coin.id] ? prices[coin.id] : coin.priceUsd;
+        });
+      });
   }
 
   getCoinsNames() {
