@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { debounceTime, tap } from 'rxjs';
+import { delay, tap } from 'rxjs';
 import { Coin, WsPrices } from 'src/app/models/coin';
 import { CoincapService } from 'src/app/services/coincap.service';
 
@@ -52,7 +52,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.coincapService.getRealTimePrices(names)
       .pipe(
         tap(prices => this.realTimePrices = { ...this.realTimePrices, ...prices }),
-        debounceTime(400)
+        delay(300)
       )
       .subscribe(prices => {
         this.datasource.data.map(coin => {
