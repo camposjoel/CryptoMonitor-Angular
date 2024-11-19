@@ -7,9 +7,10 @@ import { Coin, WsPrices } from 'src/app/models/coin';
 import { CoincapService } from 'src/app/services/coincap.service';
 
 @Component({
-  selector: 'app-table',
-  templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss']
+    selector: 'app-table',
+    templateUrl: './table.component.html',
+    styleUrls: ['./table.component.scss'],
+    standalone: false
 })
 export class TableComponent implements OnInit, AfterViewInit {
   realTimePrices: WsPrices = {};
