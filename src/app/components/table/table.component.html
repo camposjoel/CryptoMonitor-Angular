@@ -5,7 +5,7 @@
       <mat-cell class="img-cell" *matCellDef="let element">
         <img 
           ngSrc="https://static.coincap.io/assets/icons/{{element.symbol | lowercase}}@2x.png"
-          alt="{{element.symbol}}"
+          [alt]="element.symbol"
           width="40"
           height="40"
         >

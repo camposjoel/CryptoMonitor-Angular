@@ -3,8 +3,9 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { delay, tap } from 'rxjs';
-import { Coin, WsPrices } from 'src/app/models/coin';
-import { CoincapService } from 'src/app/services/coincap.service';
+import { Coin, WsPrices } from '@app/models/coin';
+import { CoincapService } from '@app/services/coincap.service';
+import { environment } from '@env/environment'
 
 @Component({
     selector: 'app-table',
@@ -49,6 +50,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   getCoinsPrices() {
+    if (!environment.websocketsEnabled) return;
     const names = this.getCoinsNames();
     this.coincapService.getRealTimePrices(names)
       .pipe(
