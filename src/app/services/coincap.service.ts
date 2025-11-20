@@ -1,16 +1,14 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { webSocket } from 'rxjs/webSocket';
 import { map, Observable } from 'rxjs';
 import { environment } from '@env/environment';
 import { Coin, CoinsResponse, WsPrices } from '@app/models/coin';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class CoincapService {
 
-  constructor(private http: HttpClient) { }
+  private http = inject(HttpClient);
 
   getCoins(itemsPerPage: number, page: number): Observable<Coin[]> {
     let limit = itemsPerPage;
@@ -22,7 +20,7 @@ export class CoincapService {
     const params = new HttpParams()
       .set('limit', limit.toString())
       .set('offset', offset.toString());
-    
+
     const headers = new HttpHeaders()
       .set('Authorization', `Bearer ${environment.coincapKey}`);
 

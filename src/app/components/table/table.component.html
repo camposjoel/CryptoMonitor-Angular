@@ -25,7 +25,7 @@
     <ng-container matColumnDef="price">
       <mat-header-cell *matHeaderCellDef>Precio</mat-header-cell>
       <mat-cell *matCellDef="let element"
-      [ngClass]="{negChange: realTimePrices[element.id] < element.priceUsd, posChange: realTimePrices[element.id] > element.priceUsd}"
+      [ngClass]="{negChange: realTimePrices()[element.id] < element.priceUsd, posChange: realTimePrices()[element.id] > element.priceUsd}"
       >
         {{ element.priceUsd | currency}}
       </mat-cell>
@@ -51,7 +51,7 @@
   </mat-table>
 
   <mat-paginator
-    [pageSize]="pageSize"
+    [pageSize]="pageSize()"
     (page)="handlePageEvent($event)">
   </mat-paginator>
 </div>
