@@ -6,12 +6,14 @@ import { delay, tap } from 'rxjs';
 import { Coin, WsPrices } from '@app/models/coin';
 import { CoincapService } from '@app/services/coincap.service';
 import { environment } from '@env/environment'
+import { MaterialModule } from '@app/material/material.module';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
-  standalone: false
+  imports: [MaterialModule, CommonModule, NgOptimizedImage]
 })
 export class TableComponent implements OnInit {
   realTimePrices = signal<WsPrices>({});
