@@ -4,10 +4,10 @@
 
 export const environment = {
   production: false,
-  restApi: "https://rest.coincap.io/v3/assets",
-  coincapKey: "${COINCAP_KEY}",
-  wsApi: "wss://ws.coincap.io",
-  websocketsEnabled: false
+  restApi: 'https://rest.coincap.io/v3/assets',
+  coincapKey: '${COINCAP_KEY}',
+  wsApi: 'wss://ws.coincap.io',
+  websocketsEnabled: false,
 };
 
 /*

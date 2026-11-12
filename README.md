@@ -1,6 +1,6 @@
 # CryptoMonitor-Angular
 
-A modern cryptocurrency monitoring application built with Angular 21 and Angular Material. This application fetches real-time cryptocurrency data from the CoinCap API and displays it in a sortable, paginated table with optional WebSocket support for live price updates.
+A modern cryptocurrency monitoring application built with Angular 22 and Angular Material. This application fetches real-time cryptocurrency data from the CoinCap API and displays it in a sortable, paginated table with optional WebSocket support for live price updates.
 
 ## Features
 
@@ -8,16 +8,16 @@ A modern cryptocurrency monitoring application built with Angular 21 and Angular
 - **Interactive Table**: Sortable data table with Angular Material
 - **Pagination**: Lazy-loaded pagination for efficient data handling
 - **Real-time Updates**: WebSocket support for live price updates (configurable)
-- **Modern Angular**: Built with Angular 21 using standalone components, signals, and the latest Angular features
+- **Modern Angular**: Built with Angular 22 using standalone components, signals, and the latest Angular features
 - **Responsive UI**: Clean interface built with Angular Material components
 
 ## Tech Stack
 
-- **Angular 21.0.0** - Latest Angular framework with standalone components
-- **Angular Material 21.0.0** - UI component library
+- **Angular 22.0.0** - Latest Angular framework with standalone components
+- **Angular Material 22.0.0** - UI component library
 - **RxJS 7.8.1** - Reactive programming for API calls and WebSocket
 - **CoinCap API** - Cryptocurrency data provider
-- **TypeScript 5.9.2** - Type-safe development
+- **TypeScript 6.0** - Type-safe development
 
 ## Project Structure
 
